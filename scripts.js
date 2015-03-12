@@ -1,16 +1,4 @@
-
-     var	'textStyle = {
-     fontName: 'Times-Roman',
-     fontSize: 18,
-     bold: true,
-     italic: true,
-     color:#872b47',
-     auraColor: #d779ae
-     opacity: 0.8
-  };                    
-     
-     
-      // Load the Visualization API and the piechart package.
+// Load the Visualization API and the piechart package.
       google.load('visualization', '1.0', {'packages':['corechart']});
 
       // Set a callback to run when the Google Visualization API is loaded.
@@ -20,63 +8,42 @@
       // instantiates the pie chart, passes in the data and
       // draws it.
       function drawChart() {
-      	
-		var arraysData = [];
-
-		for(var i=0;i<JSONFREDDATA.observations.length; i++){
-
-
-	var toppingsArray = [];
-	toppingsArray.push(JSONFREDDATA.observations[i].date);
-	toppingsArray.push(Number(JSONFREDDATA.observations[i].value));
-	arraysData.push(toppingsArray);
-	}
-
 
         // Create the data table.
         var data = new google.visualization.DataTable();
-        data.addColumn('data', 'Date');
-        data.addColumn('number', 'GDP');
-        data.addRows(arraysData);
-        
-        var formatter = new google.visualization.DateFormat({
-        	pattern: 'MMM d, y'
-        });
-
-  		// Reformat our data.
-  		formatter.format(data, 0);
+        data.addColumn('string', 'Platforms');
+        data.addColumn('number', '% of Adults');
+        data.addRows([
+          ['Twitter', 23],
+          ['Instagram', 26],
+          ['Pinterest', 28],
+          ['LinkedIn', 28],
+          ['FB', 56]
+        ]);
 
         // Set chart options
-        var options = {'title':'How Many Topping Are On My Pizza?',
-                       'width':450,
-                       'height':600,
-                       'hAxis' :{format:'MMM d, y'},
-                       'vAxis' :{}, //end of hAxis
-                    };
+        var options = {'title':'How Many Adults are Using Social Platforms?',
+                       'width':700,
+                       'height':400,
+                       'hAxis':{}
+                     };
+                     
+        options.hAxis.minValue = 0; 
         
-        options.hAxis.tectStyle = myTextStyle;
-        options.vAxis. textStyle = myTextStyle;
-        options.vAxis.gridlines = myGrid;           	
-                       		
+               var data = google.visualization.arrayToDataTable([
+         ['Element', '% of Adults', { role: 'style' }, { role: 'annotation' } ],
+         ['Copper', 8.94, '#b87333', 'Cu' ],
+         ['Silver', 10.49, 'silver', 'Ag' ],
+         ['Gold', 19.30, 'gold', 'Au' ],
+         ['Platinum', 21.45, 'color: #e5e4e2', 'Pt' ]
+      ]);
+        
+        
+        
+        
+        
+       
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
         chart.draw(data, options);
-        
-      } // end of drawChart
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        }
+      }
